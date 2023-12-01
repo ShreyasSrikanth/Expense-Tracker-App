@@ -13,13 +13,13 @@
         height: 85vh;
         margin: 0;
         flex-direction: column;
-        background-color: rgba(240, 248, 255, 0.582);
+        background-color: rgba(37, 132, 214, 0.582);
       }
 
       #formDiv {
         text-align: center;
         width: 99%;
-        height: 28%;
+        height: 65%;
       }
      
       #form {
@@ -33,6 +33,7 @@
         width: 45%;
         height: 25px;
         border-radius: 5px;
+        border: none;
       }
 
       #form input:focus{
@@ -46,7 +47,7 @@
         width: 45%;
         color: rgb(194, 121, 26);
         font-weight: bold;
-        font-size: larger;
+        font-size: medium;
       }
 
       #nameDiv {
@@ -72,8 +73,43 @@
         font-size: small;
       }
       #form input[type=submit]:active {
-        background-color: #00ffff; /* Change color when button is active/clicked */
-        transform: translateY(2px); /* Simulate button click effect */
+        background-color: #00ffff; 
+        transform: translateY(2px); 
+      }
+
+      #titleBar {
+        margin-bottom: auto;
+        width: -webkit-fill-available;
+        background-color: aqua;
+        color: antiquewhite;
+        font-size: small;
+      }
+
+      #details {
+        text-align: center; 
+        color: antiquewhite;
+      }
+
+      @media only screen and (max-width: 768px) {
+        #form input[type=submit] {
+          width: 25%;
+          font-size: xx-small;
+          height: 20px; 
+        }
+        #form input{
+          width: 65%;
+          height: 20px;
+        }
+        #form label{
+          width: 65%;
+          height: 20px;
+          font-size: small;
+        }
+        h1 {
+          text-align: center; 
+          color: antiquewhite;
+          font-size: medium;
+        }
       }
       /* #signUp {
         text-align: center;
@@ -82,8 +118,14 @@
     
 </head>
 <body>
-  <header>
-    <h1 style="text-align: center;">Enter Your Expense Details</h1>
+  <div id="titleBar">
+    <header>
+      <h1 style="text-align: center;">Sign Up</h1>
+  </header>
+  
+  </div>
+  <header id="details">
+    <h1>Enter Your Details</h1>
 </header>
 
   <div id="formDiv">
