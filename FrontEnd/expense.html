@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+        /* Add your CSS styling here */
+        /* Example styles for layout */
+        .expense-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .date-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 300px;
+        }
+
+        .category-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            width: 300px;
+        }
+
+        input[type="text"],
+        select {
+            width: 150px;
+            margin: 5px;
+        }
+
+        /* Styling for navigation buttons */
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+            background-color: #3498db; /* Blue color */
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9; /* Darker shade of blue on hover */
+        }
+
+        /* Styling for select dropdown */
+        select {
+            padding: 8px;
+            border-radius: 4px;
+        }
+        .date-container{
+            width: -webkit-fill-available;
+           
+        }
+        #calender{
+            margin-inline: auto;
+            display: flex;
+        }
+        #selectedDate{
+            padding: 0 10px 0 10px;
+        }
+        button#addExpense {
+            padding: 20px;
+            border: none;
+            border-radius: 50%; /* Makes the button circular */
+            cursor: pointer;
+            color: white;
+            background-color: #3498db; /* Blue color */
+            transition: background-color 0.3s ease;
+        }
+
+        button#addExpense:hover {
+            background-color: #2980b9; /* Darker shade of blue on hover */
+        }
+
+        /* Hide category bar by default */
+        #categoryBar {
+            display: none;
+        }
+        #expenditures{
+            height: 75vh;
+            width: -webkit-fill-available;
+            text-align-last: center;
+        }
+        @media only screen and (max-width: 768px) {
+            .date-container{
+            width: -webkit-fill-available;
+        }
+        }
+    </style>
+</head>
+<body>
+    <div class="expense-container">
+        <div class="date-container">
+            <div id="calender">
+                <button id="prevDay">&lt;</button>
+                <p id="selectedDate"></p>
+                <button id="nextDay">&gt;</button>
+            </div>
+            <div id="expenses">
+                <select id="viewExpenses">
+                    <option value="daily">Daily</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="expenditures">
+            <p>Hello</p>
+        </div>
+
+        <div id="categoryBar" class="category-bar">
+            <select id="expenseCategory">
+                <option value="fuel">Fuel</option>
+                <option value="food">Food</option>
+                <option value="movies">Movies</option>
+                <option value="travel">Travel</option>
+            </select>
+            <input type="text" id="expenseDescription" placeholder="Description">
+            <input type="text" id="expenseAmount" placeholder="Amount">
+            <button id="submitExpense" style="color: blue;">Submit</button>
+        </div>
+        <div id="addExpenseDiv">
+            <button id="addExpense">+</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="frontendscript.js"></script>
+</body>
+</html>
