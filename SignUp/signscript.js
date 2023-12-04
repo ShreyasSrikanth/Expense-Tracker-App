@@ -43,6 +43,7 @@ async function sendSignUp(e){
         });
 
         alert("data succefully stored");
+        window.location.href = '../Login/Login.html';
 
         document.getElementById('name').value = "";
         document.getElementById('email').value = "";
