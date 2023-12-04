@@ -5,7 +5,6 @@ form.addEventListener('submit',sendSignUp);
 async function fetchUsers(){
     try {
         const response = await axios.get('http://localhost:4000/users/fetchusers');
-
         return response.data;
 
     } catch (err) {

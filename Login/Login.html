@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+    /* CSS styles */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 85vh;
+      margin: 0;
+      flex-direction: column;
+      background-color: rgb(4 18 49 / 76%);
+    }
+
+    #formDiv {
+      text-align: center;
+      width: 99%;
+      height: 65%;
+    }
+   
+    #form {
+      display: block;
+      margin: auto;
+      width: 60%;
+    }
+    #form input{
+      display: block;
+      margin: auto;
+      width: 45%;
+      height: 25px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    #form input:focus{
+      border: 2px solid rgb(0, 110, 255);
+      outline: none;
+    }
+
+    #form label{
+      display: inline-flex;
+      margin: auto;
+      width: 45%;
+      color: rgb(194, 121, 26);
+      font-weight: bold;
+      font-size: medium;
+    }
+
+    #nameDiv {
+      padding-bottom: 2%;
+    }
+   
+    #passDiv {
+      margin-top: 2%;
+    }
+
+    #submitDiv {
+      margin-top: 4%;
+    }
+
+    #form input[type=submit]{
+      width: 16%;
+      height: 30px;
+      border: none;
+      background-color: aqua;
+      transition: background-color 0.3s, transform 0.3s;
+      color: rgb(194, 121, 26);
+      font-weight: bold;
+      font-size: small;
+      margin-bottom: 2%;
+    }
+    #form input[type=submit]:active {
+      background-color: #00ffff; 
+      transform: translateY(2px); 
+    }
+
+    #titleBar {
+      margin-bottom: auto;
+      width: -webkit-fill-available;
+      background-color: aqua;
+      color: antiquewhite;
+      font-size: small;
+    }
+
+    #details {
+      text-align: center; 
+      color: antiquewhite;
+    }
+
+    @media only screen and (max-width: 768px) {
+      #form input[type=submit] {
+        width: 25%;
+        font-size: xx-small;
+        height: 20px; 
+        margin-bottom: 2%;
+      }
+      #form input{
+        width: 65%;
+        height: 20px;
+      }
+      #form label{
+        width: 65%;
+        height: 20px;
+        font-size: small;
+      }
+      h1 {
+        text-align: center; 
+        color: antiquewhite;
+        font-size: medium;
+      }
+    }
+    /* #signUp {
+      text-align: center;
+    } */
+  </style>
+  
+</head>
+<body>
+<div id="titleBar">
+  <header>
+    <h1 style="text-align: center;">Sign Up</h1>
+</header>
+
+</div>
+<header id="details">
+  <h1>Enter Your Details</h1>
+</header>
+
+<div id="formDiv">
+<form id="form">
+  <div id="emailDiv">
+    <label for="email">Email</label>
+    <input type='email' name='email' id='email' class='form' required>
+  </div>
+
+  <div id="passDiv">
+    <label for="pass">Password</label>
+    <input type='password' name='pass' id='pass' class='form' required>
+  </div>
+
+  <div id="submitDiv">
+    <input type="submit" id="login" name="login" class="form" value="Login">
+    <input type="submit" id="signup" name="signup" class="form" value="Signup">
+  </div>
+</form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="loginscript.js"></script>
+</body>
+    
+</body>
+</html>
