@@ -97,91 +97,35 @@
             color: aliceblue;
         }
 
-        /* Add your CSS styling here */
-        /* Example styles for layout */
-        /* .expense-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .date-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 300px;
-        }
-
-        .category-bar {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            width: 300px;
-        }
-
-        input[type="text"],
-        select {
-            width: 150px;
-            margin: 5px;
-        }
-
-        
-        button {
-            padding: 8px 12px;
-            border: none;
-            border-radius: 4px;
+        #premiumButton {
+            border-radius: 11px;
+            background-color: #a16060;
+            height: fit-content;
+            font-size: xx-small;
+            transition: background-color 0.3s ease, transform 0.3s ease;
             cursor: pointer;
-            color: white;
-            background-color: #3498db; 
-            transition: background-color 0.3s ease;
         }
 
-        button:hover {
-            background-color: #2980b9;
+        #premiumButton:hover {
+           background-color: #d08787;
         }
 
-        
-        select {
-            padding: 8px;
-            border-radius: 4px;
-        }
-        .date-container{
-            width: -webkit-fill-available;
-           background-color: gray;
-           border-radius: 18px;
-        }
-        #calender{
-            margin-inline: auto;
-            display: flex;
-        }
-        #selectedDate{
-            padding: 0 10px 0 10px;
-        }
-        button#addExpense {
-            padding: 20px;
-            border: none;
-            border-radius: 50%; 
-            cursor: pointer;
-            color: white;
-            background-color: #3498db; 
-            transition: background-color 0.3s ease;
+        #premiumButton:active {
+            transform: scale(0.95); 
         }
 
-        button#addExpense:hover {
-            background-color: #2980b9; 
-        }
+         #premium{
+            padding-right: 5px;
+         }
 
-        
-        #categoryBar {
-            display: none;
+         @media only screen and (max-width: 1024px) {
+            #premiumButton{
+            border-radius: 11px;
+            background-color: #a16060;
+            height: fit-content;
+            font-size: xx-small;
+         }
         }
-        #expenditures{
-            height: 75vh;
-            width: -webkit-fill-available;
-            text-align-last: center;
-        } */
-        
         
     </style>
 </head>
@@ -200,6 +144,9 @@
                     <option value="yearly">Yearly</option>
                 </select>
             </div>
+            <div id="premium">
+                <button id="premiumButton">Premium Button</button>
+            </div>
         </div>
 
         <div id="expenditures">
@@ -215,7 +162,7 @@
                     <option value="movies">Movies</option>
                     <option value="travel">Travel</option>
                 </select>
-                <input type="text" id="expenseAmount" placeholder="Amount" style="border-radius: 10px; border: none; width: 15vh;">
+                <input type="number" id="expenseAmount" placeholder="Amount" style="border-radius: 10px; border: none; width: 15vh;">
             </div>
             <div id="descandsubmit">
                 <textarea id="expenseDescription" placeholder="Description" rows="5" style="border-radius: 10px; border: none; "></textarea>           
@@ -228,7 +175,9 @@
         <button id="addExpense">+</button>
     </div>
 </div>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="frontendscript.js"></script>
+    <script src="payment.js"></script>
 </body>
 </html>
