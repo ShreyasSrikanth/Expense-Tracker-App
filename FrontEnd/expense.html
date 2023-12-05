@@ -5,9 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker</title>
     <style>
+        .date-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        #calender{
+            width: -webkit-fill-available;
+            text-align: center;
+        }
+
+        #selectedDate{
+            display: inline-flex;
+        }
+
+        #categoryBar {
+            display: none;
+        }
+
+        #expenditures{
+            text-align: center;
+        }
+
+        #addExpenseDiv{
+            text-align: center;
+        }
+
+        #categoryBar{
+            display: none;
+            width: 100%;
+            justify-content: space-evenly;
+            background: cadetblue;
+            padding: 3px;
+            border-radius: 15px;
+        }
+        
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            color: white;
+            background-color: #3498db; /* Blue color */
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #425c6d; /* Darker shade of blue on hover */
+        }
+
+        #viewExpenses{
+            background-color: #3c5464;
+            padding: 10px;
+            color: white;
+            border: none;
+            border-radius: 13px;
+        }
+
+        .date-container {
+         background-color: #3498db;
+         border-radius: 5px;
+        }
+
+        #descandsubmit{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Defines columns */
+            gap: 10px
+        }
+
+        #categoryandamount{
+            display: grid;
+            gap: 55px;
+            padding-right: 15px;
+            width: 18vh;
+        }
+        
+        #expenditures{
+            height: 72vh;
+            width: -webkit-fill-available;
+            text-align-last: center;
+        } 
+        
+        #expenses{
+            padding-right: 5px;
+        }
+
+        body{
+            background-color: rgb(4 18 49 / 76%);
+            color: aliceblue;
+        }
+
         /* Add your CSS styling here */
         /* Example styles for layout */
-        .expense-container {
+        /* .expense-container {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -34,29 +126,30 @@
             margin: 5px;
         }
 
-        /* Styling for navigation buttons */
+        
         button {
             padding: 8px 12px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             color: white;
-            background-color: #3498db; /* Blue color */
+            background-color: #3498db; 
             transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: #2980b9; /* Darker shade of blue on hover */
+            background-color: #2980b9;
         }
 
-        /* Styling for select dropdown */
+        
         select {
             padding: 8px;
             border-radius: 4px;
         }
         .date-container{
             width: -webkit-fill-available;
-           
+           background-color: gray;
+           border-radius: 18px;
         }
         #calender{
             margin-inline: auto;
@@ -68,18 +161,18 @@
         button#addExpense {
             padding: 20px;
             border: none;
-            border-radius: 50%; /* Makes the button circular */
+            border-radius: 50%; 
             cursor: pointer;
             color: white;
-            background-color: #3498db; /* Blue color */
+            background-color: #3498db; 
             transition: background-color 0.3s ease;
         }
 
         button#addExpense:hover {
-            background-color: #2980b9; /* Darker shade of blue on hover */
+            background-color: #2980b9; 
         }
 
-        /* Hide category bar by default */
+        
         #categoryBar {
             display: none;
         }
@@ -87,12 +180,9 @@
             height: 75vh;
             width: -webkit-fill-available;
             text-align-last: center;
-        }
-        @media only screen and (max-width: 768px) {
-            .date-container{
-            width: -webkit-fill-available;
-        }
-        }
+        } */
+        
+        
     </style>
 </head>
 <body>
@@ -113,24 +203,31 @@
         </div>
 
         <div id="expenditures">
-            <p>Hello</p>
+            <ul id="expenseList"></ul>
         </div>
 
+    <form id="expensesForm">
         <div id="categoryBar" class="category-bar">
-            <select id="expenseCategory">
-                <option value="fuel">Fuel</option>
-                <option value="food">Food</option>
-                <option value="movies">Movies</option>
-                <option value="travel">Travel</option>
-            </select>
-            <input type="text" id="expenseDescription" placeholder="Description">
-            <input type="text" id="expenseAmount" placeholder="Amount">
-            <button id="submitExpense" style="color: blue;">Submit</button>
+            <div id="categoryandamount">
+                <select id="expenseCategory" style="border-radius: 10px; border: none; width: 15vh;">
+                    <option value="fuel">Fuel</option>
+                    <option value="food">Food</option>
+                    <option value="movies">Movies</option>
+                    <option value="travel">Travel</option>
+                </select>
+                <input type="text" id="expenseAmount" placeholder="Amount" style="border-radius: 10px; border: none; width: 15vh;">
+            </div>
+            <div id="descandsubmit">
+                <textarea id="expenseDescription" placeholder="Description" rows="5" style="border-radius: 10px; border: none; "></textarea>           
+                <input type="submit" id="submit" name="submit" class="category-bar" value="Submit" style="color: grey; background-color: aquamarine; border-radius: 7px; border:none; width: 15vh; margin-left: 40px;">  
+            </div>
+           
         </div>
-        <div id="addExpenseDiv">
-            <button id="addExpense">+</button>
-        </div>
+    </form>
+    <div id="addExpenseDiv">
+        <button id="addExpense">+</button>
     </div>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="frontendscript.js"></script>
 </body>

@@ -40,7 +40,7 @@ document.getElementById('signup').addEventListener('click', function(e) {
           
           if (response.status === 200) {
             alert(response.data.message);
-            window.location.href = '../FrontEnd/expense.html';
+            window.location.href = '../FrontEnd/expense.html?email=' + email;
           } else if (response.status === 404) {
             alert('Invalid email or password'); 
           } else {
