@@ -40,6 +40,8 @@ document.getElementById('signup').addEventListener('click', function(e) {
           
           if (response.status === 200) {
             alert(response.data.message);
+            console.log(response.data.token)
+            localStorage.setItem('token',response.data.token)
             window.location.href = '../FrontEnd/expense.html?email=' + email;
           } else if (response.status === 404) {
             alert('Invalid email or password'); 

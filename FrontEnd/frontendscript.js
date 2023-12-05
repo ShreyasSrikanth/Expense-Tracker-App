@@ -83,8 +83,15 @@ viewExpensesSelect.addEventListener('change', () => {
 
 async function fetchExpense(){
     try {
-        const response = await axios.get('http://localhost:4000/expense/fetchexpense');
-        return response.data
+        var token = localStorage.getItem('token')
+        const response = await axios.get('http://localhost:4000/expense/fetchexpense', {
+        headers: {
+            'Authorization': token
+        }
+    });
+
+    return response.data
+
     } catch(err){
         console.log("Failed to fetch expenses",err)
     }
@@ -143,11 +150,16 @@ expenseForm.addEventListener('submit', async (event) => {
         desc: expenseDescription
     };
 
+    var token = localStorage.getItem('token');
     const response = await axios.post('http://localhost:4000/expense/storeexpense', {
         category: expenseCategory,
         amount: expenseAmount,
         desc: expenseDescription,
         completed: false
+    },{
+        headers: {
+            'Authorization': token 
+        }
     });
 
     if (response.status === 200) {
