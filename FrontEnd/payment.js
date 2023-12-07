@@ -24,7 +24,7 @@ async function fetchUsers() {
     }
   }
 
-async function fetchExpense() {
+async function fetchAllexpense() {
     try {
       const response = await axios.get('http://localhost:4000/expense/fetchAllexpense');
       return response.data;
@@ -35,11 +35,21 @@ async function fetchExpense() {
   }
 
 leaderBoard.addEventListener('click',async()=>{
-    let res = await fetchUsers()
-    let res2 = await fetchExpense()
+    let users = await fetchUsers()
+    let expenses = await fetchAllexpense()
 
-    console.log('users => ', res);
-    console.log('expenses => ', res2);
+    console.log('users => ', users);
+    console.log('expenses => ', expenses);
+
+    users.forEach(user => {
+        let amount = 0
+        expenses.forEach(expense=>{
+            if(user.id === expense.UserId){
+                amount = amount + expense.amount;
+            }
+            console.log(user.name," and ",amount)
+        })
+    });
 })
 
 premiumButton.addEventListener('click', async (e) => {
