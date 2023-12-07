@@ -1,6 +1,49 @@
 const premiumButton = document.getElementById('premiumButton');
+const leaderBoard = document.getElementById('leaderBoard');
+const premium = document.getElementById('premium');
+
+
+const ispremiumuser = localStorage.getItem('ispremiumuser');
+if(ispremiumuser === 'true'){
+    premiumButton.style.display='none';
+
+    let paragraph = document.createElement('p');
+    const text = document.createTextNode('You are a premium user');
+                    
+    paragraph.appendChild(text);
+    premium.appendChild(paragraph);
+}
+
+async function fetchUsers() {
+    try {
+      const response = await axios.get('http://localhost:4000/users/fetchusers');
+      return response.data;
+    } catch (err) {
+      console.error(err);
+      alert("Failed to fetch data");
+    }
+  }
+
+async function fetchExpense() {
+    try {
+      const response = await axios.get('http://localhost:4000/expense/fetchAllexpense');
+      return response.data;
+    } catch (err) {
+      console.error(err);
+      alert("Failed to fetch data");
+    }
+  }
+
+leaderBoard.addEventListener('click',async()=>{
+    let res = await fetchUsers()
+    let res2 = await fetchExpense()
+
+    console.log('users => ', res);
+    console.log('expenses => ', res2);
+})
 
 premiumButton.addEventListener('click', async (e) => {
+    e.preventDefault()
     console.log('You are a premium member');
     
     try {
@@ -22,6 +65,13 @@ premiumButton.addEventListener('click', async (e) => {
                     }, { headers: { 'Authorization': token } });
 
                     alert('You are a premium user');
+                    premiumButton.style.display='none';
+
+                    let paragraph = document.createElement('p');
+                    const text = document.createTextNode('You are a premium user');
+                    
+                    paragraph.appendChild(text);
+                    premium.appendChild(paragraph);
                 } catch (err) {
                     console.error('Error updating transaction:', err);
                     alert('Failed to update transaction');

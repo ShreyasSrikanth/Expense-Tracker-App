@@ -114,6 +114,23 @@
             transform: scale(0.95); 
         }
 
+        #leaderBoard {
+            border-radius: 11px;
+            background-color: #a19a60;
+            height: fit-content;
+            font-size: xx-small;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        #leaderBoard:hover {
+           background-color: #a19a60;
+        }
+
+        #leaderBoard:active {
+            transform: scale(0.95); 
+        }
+
          #premium{
             padding-right: 5px;
          }
@@ -146,6 +163,7 @@
             </div>
             <div id="premium">
                 <button id="premiumButton">Premium Button</button>
+                <button id="leaderBoard">Show LeaderBoard</button>
             </div>
         </div>
 
