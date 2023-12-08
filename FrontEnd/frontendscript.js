@@ -71,7 +71,6 @@ addExpenseButton.addEventListener('click', () => {
 
 viewExpensesSelect.addEventListener('change', () => {
     const selectedView = viewExpensesSelect.value;
-
     if (selectedView === 'daily') {
         displayCurrentDate();
     } else if (selectedView === 'monthly') {

@@ -6,11 +6,13 @@ const premium = document.getElementById('premium');
 const ispremiumuser = localStorage.getItem('ispremiumuser');
 if(ispremiumuser === 'true'){
     premiumButton.style.display='none';
+    leaderBoard.style.display='flex'
 
     let paragraph = document.createElement('p');
     const text = document.createTextNode('You are a premium user');
                     
     paragraph.appendChild(text);
+    paragraph.style.fontSize='smaller';
     premium.appendChild(paragraph);
 }
 
@@ -34,23 +36,33 @@ async function fetchAllexpense() {
     }
   }
 
-leaderBoard.addEventListener('click',async()=>{
-    let users = await fetchUsers()
-    let expenses = await fetchAllexpense()
+  leaderBoard.addEventListener('click', async () => {
+    let users = await fetchUsers();
+    let expenses = await fetchAllexpense();
 
-    console.log('users => ', users);
-    console.log('expenses => ', expenses);
+    const leaderboardlist = document.getElementById('leaderboardlist');
 
     users.forEach(user => {
-        let amount = 0
-        expenses.forEach(expense=>{
-            if(user.id === expense.UserId){
-                amount = amount + expense.amount;
+        let amount = 0;
+        expenses.forEach(expense => {
+            if (user.id === expense.UserId) {
+                amount += expense.amount;
             }
-            console.log(user.name," and ",amount)
-        })
+        });
+        user.totalAmount = amount;
     });
-})
+
+    users.sort((a, b) => b.totalAmount - a.totalAmount);
+
+    leaderboardlist.innerHTML = '';
+
+    users.forEach(user => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `Name: ${user.name}, Amount: ${user.totalAmount}`;
+        leaderboardlist.appendChild(listItem);
+    });
+});
+
 
 premiumButton.addEventListener('click', async (e) => {
     e.preventDefault()
