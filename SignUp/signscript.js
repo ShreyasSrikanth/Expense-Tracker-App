@@ -40,6 +40,7 @@ async function sendSignUp(e){
             email: email,
             pass: pass,
             ispremiumuser:false,
+            totalExpense:0,
             completed: false
         });
 

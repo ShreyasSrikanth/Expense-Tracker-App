@@ -1,6 +1,8 @@
 const premiumButton = document.getElementById('premiumButton');
 const leaderBoard = document.getElementById('leaderBoard');
 const premium = document.getElementById('premium');
+const premiumTitle = document.getElementById('premiumTitle')
+const expenditures = document.getElementById('expenditures');
 
 
 const ispremiumuser = localStorage.getItem('ispremiumuser');
@@ -9,22 +11,19 @@ if(ispremiumuser === 'true'){
     leaderBoard.style.display='flex'
 
     let paragraph = document.createElement('p');
-    const text = document.createTextNode('You are a premium user');
+    const text = document.createTextNode('Premium');
                     
     paragraph.appendChild(text);
     paragraph.style.fontSize='smaller';
-    premium.appendChild(paragraph);
-}
+    paragraph.style.background = 'brown';
+    paragraph.style.borderRadius = '4px';
+    paragraph.style.paddingLeft = '6px';
+    paragraph.style.paddingTop = '5px';
+    paragraph.style.paddingBottom = '5px';
+    premiumTitle.appendChild(paragraph);
 
-async function fetchUsers() {
-    try {
-      const response = await axios.get('http://localhost:4000/users/fetchusers');
-      return response.data;
-    } catch (err) {
-      console.error(err);
-      alert("Failed to fetch data");
-    }
-  }
+    expenditures.style.background='radial-gradient(black, transparent)';
+}
 
 async function fetchAllexpense() {
     try {
@@ -37,29 +36,15 @@ async function fetchAllexpense() {
   }
 
   leaderBoard.addEventListener('click', async () => {
-    let users = await fetchUsers();
     let expenses = await fetchAllexpense();
 
     const leaderboardlist = document.getElementById('leaderboardlist');
-
-    users.forEach(user => {
-        let amount = 0;
-        expenses.forEach(expense => {
-            if (user.id === expense.UserId) {
-                amount += expense.amount;
-            }
-        });
-        user.totalAmount = amount;
-    });
-
-    users.sort((a, b) => b.totalAmount - a.totalAmount);
-
     leaderboardlist.innerHTML = '';
 
-    users.forEach(user => {
+    expenses.forEach(expenseLeaderBoard => {
         const listItem = document.createElement('li');
-        listItem.textContent = `Name: ${user.name}, Amount: ${user.totalAmount}`;
-        leaderboardlist.appendChild(listItem);
+        listItem.textContent = `Name: ${expenseLeaderBoard.name} , Total Expenditure: ${expenseLeaderBoard.totalExpense}` ;
+        leaderboardlist.appendChild(listItem);       
     });
 });
 

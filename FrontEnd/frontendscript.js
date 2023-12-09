@@ -98,6 +98,7 @@ async function fetchExpense(){
 
 function displayExpenses(expenses) {
     const expenseList = document.getElementById('expenseList');
+    
 
     expenses.forEach((expense) => {
         const listItem = document.createElement('li');
@@ -106,8 +107,14 @@ function displayExpenses(expenses) {
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         deleteButton.addEventListener('click', async () => {
+            const token = localStorage.getItem('token');
             const response = await axios.post('http://localhost:4000/expense/deleteexpense', {
-               ID: expense.id
+                    ID: expense.id,
+                    amount: expense.amount
+            },{
+                headers:{
+                    'Authorization' : token
+                }
             });
             if (response.status === 200) {
                 const updatedExpenses = await fetchExpense();
@@ -140,7 +147,8 @@ expenseForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     
     const expenseCategory = document.getElementById('expenseCategory').value;
-    const expenseAmount = document.getElementById('expenseAmount').value;
+    const expenseAmountStr = document.getElementById('expenseAmount').value;
+    const expenseAmount = parseFloat(expenseAmountStr);
     const expenseDescription = document.getElementById('expenseDescription').value;
 
     const expenseDetails = {
