@@ -2,6 +2,11 @@ document.getElementById('signup').addEventListener('click', function(e) {
     e.preventDefault();
     window.location.href = '../SignUp/SignUp.html';
   });
+
+document.getElementById('forgotpassword').addEventListener('click', function(e){
+    e.preventDefault();
+    window.location.href = '../ForgotPassword/forgotpassword.html';
+})
   
   let form = document.getElementById('form');
   
