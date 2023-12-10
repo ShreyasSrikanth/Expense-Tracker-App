@@ -45,11 +45,12 @@
         button {
             padding: 8px 12px;
             border: none;
-            border-radius: 25px;
+            border-radius: 9px;
             cursor: pointer;
             color: white;
             background-color: #3498db; /* Blue color */
             transition: background-color 0.3s ease;
+            margin-left: 16px;
         }
 
         button:hover {
@@ -86,6 +87,7 @@
             height: 72vh;
             width: -webkit-fill-available;
             text-align-last: center;
+            text-align: -webkit-center
         } 
         
         #expenses{
@@ -135,6 +137,46 @@
          #premium{
             padding-right: 5px;
          }
+         #downloadExpenseDiv {
+           text-align: right;
+        }
+
+        .expense-table {
+           width: 100%;
+           border-collapse: collapse;
+        }
+
+        .expense-table th,
+        .expense-table td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+       .expense-table th {
+            background-color: #b82e2e;
+        }
+ 
+       .expense-table .delete-cell {
+            text-align: center;
+        }
+
+        .expense-table button {
+            cursor: pointer;
+            padding: 4px 8px;
+            background-color: #ff3333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        #downloadExpense{
+            border-radius: 20px;
+        }
+
+        #addExpense{
+            border-radius: 20px;
+        }
 
          @media only screen and (max-width: 1024px) {
             #premiumButton{
@@ -198,6 +240,10 @@
     </form>
     <div id="addExpenseDiv">
         <button id="addExpense">+</button>
+    </div>
+
+    <div id="downloadExpenseDiv">
+        <button id="downloadExpense">&#x2B07;</button>
     </div>
 </div>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
