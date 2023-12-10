@@ -42,7 +42,6 @@ prevDayButton.addEventListener('click', () => {
         currentDate.setFullYear(currentDate.getFullYear() - 1);
         displayCurrentYear();
     }
-    updateExpensesView(viewExpensesSelect.value);
 });
 
 nextDayButton.addEventListener('click', () => {
@@ -56,7 +55,6 @@ nextDayButton.addEventListener('click', () => {
         currentDate.setFullYear(currentDate.getFullYear() + 1);
         displayCurrentYear();
     }
-    updateExpensesView(viewExpensesSelect.value);
 });
 
 const categoryBar = document.getElementById('categoryBar');
@@ -80,68 +78,29 @@ viewExpensesSelect.addEventListener('change', () => {
     } else if (selectedView === 'yearly') {
         displayCurrentYear();
     }
-    updateExpensesView(selectedView);
 });
 
-async function fetchExpenseByDate(startDate, endDate) {
+async function fetchExpense(){
     try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:4000/expense/fetchexpense?startDate=${formattedStartDate}&endDate=${formattedEndDate}`, {
-            headers: {
-                'Authorization': token
-            }
-        });
-        return response.data;
-    } catch (err) {
-        console.log("Failed to fetch expenses", err);
-        return []; // Return an empty array or handle the error according to your app logic
+        var token = localStorage.getItem('token')
+        const response = await axios.get('http://localhost:4000/expense/fetchexpense', {
+        headers: {
+            'Authorization': token
+        }
+    });
+
+    return response.data
+
+    } catch(err){
+        console.log("Failed to fetch expenses",err)
     }
-}
-
-function calculateDateRange(viewType) {
-    const today = new Date();
-    let startDate, endDate;
-
-    switch (viewType) {
-        case 'daily':
-            startDate = new Date(currentDate);
-            endDate = new Date(currentDate);
-            break;
-        case 'monthly':
-            startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-            endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-            break;
-        case 'yearly':
-            startDate = new Date(currentDate.getFullYear(), 0, 1);
-            endDate = new Date(currentDate.getFullYear(), 11, 31);
-            break;
-        default:
-            break;
-    }
-
-    return { startDate, endDate };
-}
-
-async function updateExpensesView(viewType) {
-    const { startDate, endDate } = calculateDateRange(viewType);
-    const expenses = await fetchExpenseByDate(startDate, endDate);
-    displayExpenses(expenses);
 }
 
 function displayExpenses(expenses) {
-    const expenseList = document.getElementById('expenseList');
-    expenseList.innerHTML = '';
-
-    if (expenses.length === 0) {
-        const noExpensesMessage = document.createElement('p');
-        noExpensesMessage.textContent = 'No expenses found for the selected period.';
-        expenseList.appendChild(noExpensesMessage);
-        return;
-    }
-
     const expenseTable = document.createElement('table');
     expenseTable.classList.add('expense-table');
 
+    // Create table header
     const tableHeader = document.createElement('thead');
     const headerRow = document.createElement('tr');
     const headerCategories = ['Category', 'Description', 'Amount', 'Created At', 'Delete'];
@@ -153,30 +112,37 @@ function displayExpenses(expenses) {
     tableHeader.appendChild(headerRow);
     expenseTable.appendChild(tableHeader);
 
+    // Create table body
     const tableBody = document.createElement('tbody');
-
     expenses.forEach((expense) => {
         const row = document.createElement('tr');
 
+        // Category cell
         const categoryCell = document.createElement('td');
         categoryCell.textContent = expense.category;
         row.appendChild(categoryCell);
 
+        // Description cell
         const descriptionCell = document.createElement('td');
         descriptionCell.textContent = expense.description;
         row.appendChild(descriptionCell);
 
+        // Amount cell
         const amountCell = document.createElement('td');
         amountCell.textContent = expense.amount;
         row.appendChild(amountCell);
 
+        // Created At cell
         const createdAtCell = document.createElement('td');
-        const date = new Date(expense.createdAt);
+        const dateString = expense.createdAt;
+        const date = new Date(dateString);
         const formattedDate = `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
         createdAtCell.textContent = formattedDate;
         row.appendChild(createdAtCell);
 
+        // Delete button cell
         const deleteButtonCell = document.createElement('td');
+        deleteButtonCell.classList.add('delete-cell');
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         deleteButton.addEventListener('click', async () => {
@@ -190,7 +156,11 @@ function displayExpenses(expenses) {
                 }
             });
             if (response.status === 200) {
-                updateExpensesView(viewExpensesSelect.value);
+                const updatedExpenses = await fetchExpense();
+                if (updatedExpenses) {
+                    expenseTable.innerHTML = '';
+                    displayExpenses(updatedExpenses);
+                }
             }
         });
         deleteButtonCell.appendChild(deleteButton);
@@ -198,12 +168,12 @@ function displayExpenses(expenses) {
 
         tableBody.appendChild(row);
     });
-
     expenseTable.appendChild(tableBody);
+
+    const expenseList = document.getElementById('expenseList');
+    expenseList.innerHTML = '';
     expenseList.appendChild(expenseTable);
 }
-
-updateExpensesView(viewExpensesSelect.value);
 
 
     fetchExpense()
