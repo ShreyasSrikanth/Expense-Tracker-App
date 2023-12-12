@@ -142,7 +142,7 @@
         }
 
         .expense-table {
-           width: 100%;
+           width: 70%;
            border-collapse: collapse;
         }
 
@@ -184,8 +184,16 @@
             background-color: #a16060;
             height: fit-content;
             font-size: xx-small;
-         }
         }
+        .expense-table {
+        font-size: 10px; /* Further reduce font size for smaller screens */
+    }
+
+    .expense-table th,
+    .expense-table td {
+        padding: 4px;
+    }
+    }
         
     </style>
 </head>
@@ -216,9 +224,7 @@
             <ul id="expenseList"></ul>
         </div>
 
-        <div id="premiumfeature">
-            <ul id="leaderboardlist"></ul>
-        </div>
+        
 
     <form id="expensesForm">
         <div id="categoryBar" class="category-bar">
@@ -240,6 +246,12 @@
     </form>
     <div id="addExpenseDiv">
         <button id="addExpense">+</button>
+    </div>
+
+    <div id="premiumfeature">
+        <ul id="leaderboardlist"></ul>
+        <h4 id="urlListHeader"></h4>
+        <ul id="urlList"></ul>
     </div>
 
     <div id="downloadExpenseDiv">
