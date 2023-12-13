@@ -5,6 +5,9 @@ const addExpenseButton = document.getElementById('addExpense');
 const viewExpensesSelect = document.getElementById('viewExpenses');
 const downloadButton = document.getElementById('downloadExpense');
 
+const nextExpense = document.getElementById('nextExpense');
+const prevExpense = document.getElementById('prevExpense');
+
 
 const urlParams = new URLSearchParams(window.location.search);
 const userEmail = urlParams.get('email');
@@ -12,6 +15,9 @@ const userEmail = urlParams.get('email');
 
 let currentDate = new Date();
 let isCategoryBarVisible = false;
+
+var fetchDate;
+
 
 function displayCurrentDate() {
     const options = { year: 'numeric', month: 'long', day: '2-digit' };
@@ -96,10 +102,34 @@ addExpenseButton.addEventListener('click', () => {
 
 async function fetchExpense(currentFormattedDate){
     try {
+        var start = 0;
+        var limit = 10;
+        nextExpense.addEventListener('click', async ()=>{
+            start = start + limit;
+            await axios.get(`http://localhost:4000/expense/fetchexpense/${currentFormattedDate}?start=${start}&limit=${limit}`, {
+            headers: {
+                'Authorization': token
+            }
+        }).then(res=>{
+            displayExpenses(res.data);
+        })
+        })
+
+        prevExpense.addEventListener('click',async ()=>{
+            start = start - limit;
+            await axios.get(`http://localhost:4000/expense/fetchexpense/${currentFormattedDate}?start=${start}&limit=${limit}`, {
+            headers: {
+                'Authorization': token
+            }
+        }).then(res=>{
+            displayExpenses(res.data);
+        })
+        })
+
         
-        console.log('Daily',currentFormattedDate);
+        
         var token = localStorage.getItem('token')
-        const response = await axios.get(`http://localhost:4000/expense/fetchexpense/${currentFormattedDate}`, {
+        const response = await axios.get(`http://localhost:4000/expense/fetchexpense/${currentFormattedDate}?start=${start}&limit=${limit}`, {
             headers: {
                 'Authorization': token
             }
