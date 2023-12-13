@@ -3,6 +3,7 @@ const prevDayButton = document.getElementById('prevDay');
 const nextDayButton = document.getElementById('nextDay');
 const addExpenseButton = document.getElementById('addExpense');
 const viewExpensesSelect = document.getElementById('viewExpenses');
+const expDropdownSelect = document.getElementById('expDropdown');
 const downloadButton = document.getElementById('downloadExpense');
 
 const nextExpense = document.getElementById('nextExpense');
@@ -98,12 +99,23 @@ addExpenseButton.addEventListener('click', () => {
     }
 });
 
-
-
 async function fetchExpense(currentFormattedDate){
     try {
-        var start = 0;
-        var limit = 10;
+        let start = 0;
+        let limit = parseInt(document.getElementById('expDropdown').value);
+
+        const expDropdownSelect = document.getElementById('expDropdown');
+        expDropdownSelect.addEventListener('change', async (event) => {
+            limit = parseInt(event.target.value);
+            await axios.get(`http://localhost:4000/expense/fetchexpense/${currentFormattedDate}?start=${start}&limit=${limit}`, {
+            headers: {
+                'Authorization': token
+            }
+        }).then(res=>{
+            displayExpenses(res.data);
+        })
+        });
+        
         nextExpense.addEventListener('click', async ()=>{
             start = start + limit;
             await axios.get(`http://localhost:4000/expense/fetchexpense/${currentFormattedDate}?start=${start}&limit=${limit}`, {
@@ -116,14 +128,20 @@ async function fetchExpense(currentFormattedDate){
         })
 
         prevExpense.addEventListener('click',async ()=>{
+
             start = start - limit;
-            await axios.get(`http://localhost:4000/expense/fetchexpense/${currentFormattedDate}?start=${start}&limit=${limit}`, {
-            headers: {
-                'Authorization': token
+            if(start >= 0){
+                await axios.get(`http://localhost:4000/expense/fetchexpense/${currentFormattedDate}?start=${start}&limit=${limit}`, {
+                headers: {
+                    'Authorization': token
+                }
+                }).then(res=>{
+                        displayExpenses(res.data);
+                })
+            } else {
+                start = 0;
             }
-        }).then(res=>{
-            displayExpenses(res.data);
-        })
+            
         })
 
         
