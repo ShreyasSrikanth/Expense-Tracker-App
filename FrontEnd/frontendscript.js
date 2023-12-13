@@ -103,6 +103,7 @@ async function fetchExpense(currentFormattedDate){
     try {
         let start = 0;
         let limit = parseInt(document.getElementById('expDropdown').value);
+        var token = localStorage.getItem('token');
 
         const expDropdownSelect = document.getElementById('expDropdown');
         expDropdownSelect.addEventListener('change', async (event) => {
@@ -144,9 +145,6 @@ async function fetchExpense(currentFormattedDate){
             
         })
 
-        
-        
-        var token = localStorage.getItem('token')
         const response = await axios.get(`http://localhost:4000/expense/fetchexpense/${currentFormattedDate}?start=${start}&limit=${limit}`, {
             headers: {
                 'Authorization': token
