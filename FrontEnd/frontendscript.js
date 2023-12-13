@@ -320,47 +320,50 @@ expenseForm.addEventListener('submit', async (event) => {
     console.log('Expense Details:', response.status);
 });
 
-downloadButton.addEventListener('click', async(e) =>{
-    e.preventDefault();
+ispremiumuser = localStorage.getItem('ispremiumuser')
 
-    try {
-        var token = localStorage.getItem('token')
-        const response = await axios.get(`http://localhost:4000/expense/download`, {
-            headers: {
-                'Authorization': token
-            }
-        });
-        const { fileUrl, success } = response.data;
-
-        var a = document.createElement('a');
-        a.href =fileUrl;
-        a.download = 'expense.csv';
-        a.click();
-
-        const allUrls = await axios.get(`http://localhost:4000/expense/urls`, {
-            headers: {
-                'Authorization': token
-            }
-        });
-
-        const { urls } = allUrls.data
-
-        const urlList = document.getElementById('urlList');
-        urlListHeader = document.getElementById('urlListHeader');
-        urlListHeader.textContent = "List of Previously fetched Urls"
-
-        urls.forEach( url =>{
-            console.log('allurls ----->', url.fileUrl);
-            const listItem = document.createElement('li');
-            const link = document.createElement('a');
-            link.href = url.fileUrl;
-            link.textContent = url.fileUrl;
-            link.target = '_blank'; // Open links in a new tab/window
-            listItem.appendChild(link);
-            urlList.appendChild(listItem);
-        })
-    } catch(err){
-        console.log("Failed to fetch expenses",err)
-    }
+if(ispremiumuser ==='true'){
+    downloadButton.addEventListener('click', async(e) =>{
+        e.preventDefault();
     
-})
+        try {
+            var token = localStorage.getItem('token')
+            const response = await axios.get(`http://localhost:4000/expense/download`, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+            const { fileUrl, success } = response.data;
+    
+            var a = document.createElement('a');
+            a.href =fileUrl;
+            a.download = 'expense.csv';
+            a.click();
+    
+            const allUrls = await axios.get(`http://localhost:4000/expense/urls`, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+    
+            const { urls } = allUrls.data
+    
+            const urlList = document.getElementById('urlList');
+            urlListHeader = document.getElementById('urlListHeader');
+            urlListHeader.textContent = "List of Previously fetched Urls"
+    
+            urls.forEach( url =>{
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = url.fileUrl;
+                link.textContent = url.fileUrl;
+                link.target = '_blank'; // Open links in a new tab/window
+                listItem.appendChild(link);
+                urlList.appendChild(listItem);
+            })
+        } catch(err){
+            console.log("Failed to fetch expenses",err)
+        }
+        
+    })
+}
