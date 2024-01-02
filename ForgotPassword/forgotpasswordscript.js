@@ -6,7 +6,7 @@ form.addEventListener('submit', async (e) => {
     let email = document.getElementById('email').value;
      
 
-    const response = await axios.post('http://localhost:4000/password/forgotpassword', {
+    const response = await axios.post('http://54.162.115.208:4000/password/forgotpassword', {
         email: email,
         isactive: true
     }, {
